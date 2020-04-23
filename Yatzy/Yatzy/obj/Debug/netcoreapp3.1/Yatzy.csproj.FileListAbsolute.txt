@@ -1,0 +1,13 @@
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.csprojAssemblyReference.cache
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.csproj.CoreCompileInputs.cache
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.AssemblyInfoInputs.cache
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.AssemblyInfo.cs
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\bin\Debug\netcoreapp3.1\Yatzy.exe
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\bin\Debug\netcoreapp3.1\Yatzy.deps.json
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\bin\Debug\netcoreapp3.1\Yatzy.runtimeconfig.json
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\bin\Debug\netcoreapp3.1\Yatzy.runtimeconfig.dev.json
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\bin\Debug\netcoreapp3.1\Yatzy.dll
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\bin\Debug\netcoreapp3.1\Yatzy.pdb
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.dll
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.pdb
+C:\Users\Kasper\source\repos\Yatzy\Yatzy\obj\Debug\netcoreapp3.1\Yatzy.genruntimeconfig.cache
