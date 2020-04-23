@@ -30,7 +30,7 @@ namespace Yatzy
 
                 if (hasRemainingTries() == false)
                 {
-                    Console.WriteLine("You have now thrown the dices 3 times. Your last throw:");
+                    Console.WriteLine("You have now thrown the dice 3 times. Your last throw:");
                     _hand.ShowDices();
                     Console.WriteLine("Click Enter for a new round");
                     tries = Settings.antalForsøg;
