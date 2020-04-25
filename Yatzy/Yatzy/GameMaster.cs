@@ -14,8 +14,10 @@ namespace Yatzy
         // TODO: Better Format the output text from the console. Make it prettier overall.
 
         public Hand _hand { get; private set; } = new Hand();
-        public Scoreboard Scoreboard { get; set; } = new Scoreboard();
+        public LowerScoreboard Scoreboard { get; set; } = new LowerScoreboard();
         public Roll Roll { get; set; }
+
+        public UpperScoreboard UpScoreboard { get; set; } = new UpperScoreboard();
 
         private int UserChoice;
         private bool GameRunning = true;

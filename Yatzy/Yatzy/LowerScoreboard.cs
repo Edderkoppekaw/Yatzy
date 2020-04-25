@@ -5,17 +5,19 @@ using System.Text;
 
 namespace Yatzy
 {
-    class Scoreboard
+    class LowerScoreboard
     {
         public List<Rule> Rules { get; set; } = new List<Rule>();
 
-        public Scoreboard()
+        public LowerScoreboard()
         {
             Rules.Add(new YatzyCheck());
             Rules.Add(new ThreeOfAKindCheck());
             Rules.Add(new FourOfAKindCheck());
             Rules.Add(new ChanceRule());
-            //Rules.Add(new AcesCount());
+            Rules.Add(new PairCheck());
+            Rules.Add(new TwoPairsCheck());
+            Rules.Add(new FullHouseCheck());
         }
 
         public void Print()

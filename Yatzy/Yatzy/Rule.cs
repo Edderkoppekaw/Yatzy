@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Yatzy
 {
@@ -67,32 +68,6 @@ namespace Yatzy
         }
     }
 
-/*    public abstract class NCount : Rule
-    {
-        public int N { get; }
-        public int M { get; }
-
-        public NCount(int n, int m)
-        {
-            N = n;
-            M = m;
-        }
-        public bool IsFulfilled(List<int> diceList)
-        {
-            return diceList.Where(d => d == M).Count() == N;
-        }
-
-        public List<int> GetScores(List<int> diceList)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetName()
-        {
-            throw new NotImplementedException();
-        }
-    }*/
-
     public class ThreeOfAKindCheck : NOfAKindCheck
     {
         public ThreeOfAKindCheck() : base(3)
@@ -131,7 +106,207 @@ namespace Yatzy
         }
     }
 
-    public class FullHouseRule : Rule
+
+
+    public class AcesCount : Rule
+    {
+        public override string GetName()
+        {
+            return "Aces";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+
+            for (int i = 1; i <= 6; i++)
+            {
+                diceList.Count(i => i == 1);
+                scores.Add(i * 1);
+
+
+            }
+            return scores;
+        }
+    }
+    public class TwosCount : Rule
+    {
+        public override string GetName()
+        {
+            return "Twos";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+
+            for (int i = 1; i <= 6; i++)
+            {
+                diceList.Count(i => i == 2);
+                scores.Add(i * 2);
+
+
+            }
+            return scores;
+        }
+    }
+    public class ThreesCount : Rule
+    {
+        public override string GetName()
+        {
+            return "Threes";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+
+            for (int i = 1; i <= 6; i++)
+            {
+                diceList.Count(i => i == 3);
+                scores.Add(i * 3);
+
+
+            }
+            return scores;
+        }
+    }
+    public class FoursCount : Rule
+    {
+        public override string GetName()
+        {
+            return "Fours";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+
+            for (int i = 1; i <= 6; i++)
+            {
+                diceList.Count(i => i == 4);
+                scores.Add(i * 4);
+
+
+            }
+            return scores;
+        }
+    }
+    public class FivesCount : Rule
+    {
+        public override string GetName()
+        {
+            return "Fives";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+
+            for (int i = 1; i <= 6; i++)
+            {
+                diceList.Count(i => i == 5);
+                scores.Add(i * 5);
+
+
+            }
+            return scores;
+        }
+    }
+    public class SixesCount : Rule
+    {
+        public override string GetName()
+        {
+            return "Sixes";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+
+            for (int i = 1; i <= 6; i++)
+            {
+                diceList.Count(i => i == 6);
+                scores.Add(i * 6);
+
+
+            }
+            return scores;
+        }
+
+
+    }
+    public class PairCheck : Rule
+    {
+        public override string GetName()
+        {
+            return "1 Pair";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+            for (int i = 1; i <= 6; i++)
+            {
+                int count = 0;
+
+                for (int j = 0; j < 6; j++)
+                {
+                    if (diceList[j] == i)
+                        count++;
+                    if (count == 2)
+                        scores.Add(2 * i);
+                }
+
+            }
+            return scores;
+        }
+    }
+    public class TwoPairsCheck : Rule
+    {
+        public override string GetName()
+        {
+            return "2 Pairs";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+            for (int i = 1; i <= 6; i++)
+            {
+                for (int k = 1; k <= 6; k++)
+                {
+                    if (i == k)
+                        continue;
+
+
+                    int count1 = 0;
+                    int count2 = 0;
+                    for (int j = 0; j < 6; j++)
+                    {
+                        if (diceList[j] == i)
+                            count1++;
+                    }
+                    for (int l = 0; l < 6; l++)
+                    {
+                        if (diceList[l] == k)
+                            count2++;
+                    }
+                    if (count1 == 2 && count2 == 2) ;
+                    scores.Add(2 * i + 2 * k);
+                }
+            }
+            return scores;
+        }
+    }
+    public class FullHouseCheck : Rule
     {
         public override string GetName()
         {
@@ -140,268 +315,73 @@ namespace Yatzy
 
         public override List<int> GetScores(List<int> diceList)
         {
-            throw new NotImplementedException();
-        }
-    }
-
-        public class AcesCount : NCount
-        {
-            public AcesCount() : base (1, 1)
-            {
-            }
-        }
-        public class TwosCount : Rule
-        {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Count = 0;
-                bool Twos = false;
-
-                for (int i = 1; i <= 6; i++)
-                {
-                    diceList.Count(d => d == 2);
-                    Count = diceList.Count;
-
-                    return true;
-                }
-                return false;
-            }
-        }
-        public class ThreesCount : Rule
-        {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Count = 0;
-                bool Threes = false;
-
-                for (int i = 1; i <= 6; i++)
-                {
-                    diceList.Count(d => d == 3);
-                    Count = diceList.Count;
-
-                    return true;
-                }
-                return false;
-            }
-        }
-        public class FoursCount : Rule
-        {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Count = 0;
-                bool Fours = false;
-
-                for (int i = 1; i <= 6; i++)
-                {
-                    diceList.Count(d => d == 4);
-                    Count = diceList.Count;
-
-                    return true;
-                }
-                return false;
-            }
-        }
-        public class FivesCount : Rule
-        {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Count = 0;
-                bool Fives = false;
-
-                for (int i = 1; i <= 6; i++)
-                {
-                    diceList.Count(d => d == 5);
-                    Count = diceList.Count;
-
-                    return true;
-                }
-                return false;
-            }
-        }
-        public class SixesCount : Rule
-        {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Count = 0;
-                bool Sixes = false;
-
-                for (int i = 1; i <= 6; i++)
-                {
-                    diceList.Count(d => d == 6);
-                    Count = diceList.Count;
-
-                    return true;
-                }
-                return false;
-            }
-        }
-        public class PairCheck : Rule
-        {
-            public string GetName()
-            {
-            return "1 Pair";
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
             var scores = new List<int>();
+
 
             for (int i = 1; i <= 6; i++)
             {
-                int count = 0;
-                for (int j = 0; j < 6; j++)
+                for (int k = 1; k <= 6; k++)
                 {
-                    if (diceList[j] == i)
-                        count++;
-                }
-                if (count == 2)
-                scores.Add()        
-            }
-            
-        }
+                    if (i == k)
+                        continue;
 
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Sum = 0;
-                bool Pairs = false;
 
-                for (int i = 1; i <= 6; i++)
-                {
-                    int count = 0;
-                    for (int j = 0; j < 5; j++)
-                    {
-                        if (diceList[j] == i)
-                            count++;
-                    }
-                    if (count == 2)
-                        return true;
-                }
-                return false;
-            }
-        }
-        public class TwoPairsCheck : Rule
-        {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<int> GetScores(List<int> diceList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Sum = 0;
-                bool TwoPairs = false;
-
-                for (int i = 1; i <= 6; i++)
-                {
                     int count1 = 0;
                     int count2 = 0;
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < 6; j++)
                     {
                         if (diceList[j] == i)
                             count1++;
                     }
-                    for (int j = 0; j < 5; j++)
+                    for (int l = 0; l < 6; l++)
                     {
-                        if (diceList[j] == i)
+                        if (diceList[l] == k)
                             count2++;
                     }
-                    if (count1 == 2 && count2 == 2) ;
-                    return true;
+                    if (count1 == 2 && count2 == 3) ;
+                    scores.Add(2 * i + 3 * k);
                 }
-                return false;
             }
+            return scores;
         }
-        public class FullHouseCheck : Rule
+    }
+
+    public class SmallStraightCheck : Rule
+    {
+        public override string GetName()
         {
-            public string GetName()
-            {
-                throw new NotImplementedException();
-            }
+            return "Small Straight";
+        }
 
-            public List<int> GetScores(List<int> diceList)
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+            for (int i = 1; i <= 6; i++)
             {
-                throw new NotImplementedException();
-            }
-
-            public bool IsFulfilled(List<int> diceList)
-            {
-                int Sum = 0;
-                bool FullHouse = false;
-                List<Terning> twoAlike = new List<Terning>();
-                List<Terning> threeAlike = new List<Terning>();
-                var Terning = new Terning();
-
-                for (int i = 1; i <= 6; i++)
+                for (int k = 1; k <= 6; k++)
                 {
-                    for (int j = 0; j < 5; j++)
+                    if (i == k)
+                        continue;
+
+
+                    int count1 = 0;
+                    int count2 = 0;
+                    for (int j = 0; j < 6; j++)
                     {
                         if (diceList[j] == i)
-                            threeAlike.Add(Terning);
+                            count1++;
                     }
-                    for (int k = 0; k < 5; k++)
+                    for (int l = 0; l < 6; l++)
                     {
-                        if (diceList[k] == i)
-                            twoAlike.Add(Terning);
+                        if (diceList[l] == k)
+                            count2++;
                     }
-                    if (twoAlike.Count == 2 && (threeAlike.Count == 3))
-                        return true;
+                    if (count1 == 2 && count2 == 3) ;
+                    scores.Add(2 * i + 3 * k);
                 }
-                return false;
             }
-        }*/
+            return scores;
+        }
+    }
+
 }
