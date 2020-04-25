@@ -107,12 +107,6 @@ namespace Yatzy
         }
     }
 
-    public class FiveOfAKindCheck : NOfAKindCheck
-    {
-        public FiveOfAKindCheck() : base(5)
-        {
-        }
-    }
 
     public class YatzyCheck : NOfAKindCheck
     {
@@ -150,7 +144,7 @@ namespace Yatzy
         }
     }
 
-    /*    public class AcesCount : NCount
+        public class AcesCount : NCount
         {
             public AcesCount() : base (1, 1)
             {
@@ -291,17 +285,30 @@ namespace Yatzy
                 return false;
             }
         }
-        public class PairsCheck : Rule
+        public class PairCheck : Rule
         {
             public string GetName()
             {
-                throw new NotImplementedException();
+            return "1 Pair";
             }
 
             public List<int> GetScores(List<int> diceList)
             {
-                throw new NotImplementedException();
+            var scores = new List<int>();
+
+            for (int i = 1; i <= 6; i++)
+            {
+                int count = 0;
+                for (int j = 0; j < 6; j++)
+                {
+                    if (diceList[j] == i)
+                        count++;
+                }
+                if (count == 2)
+                scores.Add()        
             }
+            
+        }
 
             public bool IsFulfilled(List<int> diceList)
             {

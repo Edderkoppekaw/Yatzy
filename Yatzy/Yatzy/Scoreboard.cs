@@ -14,7 +14,6 @@ namespace Yatzy
             Rules.Add(new YatzyCheck());
             Rules.Add(new ThreeOfAKindCheck());
             Rules.Add(new FourOfAKindCheck());
-            Rules.Add(new FiveOfAKindCheck());
             Rules.Add(new ChanceRule());
             //Rules.Add(new AcesCount());
         }
