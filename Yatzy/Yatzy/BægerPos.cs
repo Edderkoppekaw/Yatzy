@@ -8,14 +8,14 @@ namespace Yatzy
     {
         public bool FirstRound { get; private set; } = true; // set this to false when the user has made the first move
         // this class has a hand of all the dices in the game (o)
-        private readonly Terning.snydeTerning[] snydeTerninger =
+        private readonly Terning.SnydeTerning[] snydeTerninger =
         {
-            new Terning.snydeTerning(Settings.snydeGrad, Settings.bias),
-            new Terning.snydeTerning(Settings.snydeGrad, Settings.bias),
-            new Terning.snydeTerning(Settings.snydeGrad, Settings.bias),
-            new Terning.snydeTerning(Settings.snydeGrad, Settings.bias),
-            new Terning.snydeTerning(Settings.snydeGrad, Settings.bias),
-            new Terning.snydeTerning(Settings.snydeGrad, Settings.bias)
+            new Terning.SnydeTerning(),
+            new Terning.SnydeTerning(),
+            new Terning.SnydeTerning(),
+            new Terning.SnydeTerning(),
+            new Terning.SnydeTerning(),
+            new Terning.SnydeTerning()
         };
 
         // Now comes the tricky part, I need a new method where the user chooses a set number of dices which then I have to keep and reroll the others. 
@@ -36,42 +36,42 @@ namespace Yatzy
                     if (roll == 1)
                     {
 
-                        snydeTerninger[0].Reroll();
+                        snydeTerninger[0].Roll();
 
                     }
 
                     if (roll == 2)
                     {
 
-                        snydeTerninger[1].Reroll();
+                        snydeTerninger[1].Roll();
 
                     }
 
                     if (roll == 3)
                     {
 
-                        snydeTerninger[2].Reroll();
+                        snydeTerninger[2].Roll();
 
                     }
 
                     if (roll == 4)
                     {
 
-                        snydeTerninger[3].Reroll();
+                        snydeTerninger[3].Roll();
 
                     }
 
                     if (roll == 5)
                     {
 
-                        snydeTerninger[4].Reroll();
+                        snydeTerninger[4].Roll();
 
                     }
 
                     if (roll == 6)
                     {
 
-                        snydeTerninger[5].Reroll();
+                        snydeTerninger[5].Roll();
 
                     }
                 }
@@ -92,9 +92,9 @@ namespace Yatzy
         public void ShowDices()
         {
             Console.WriteLine();
-            foreach (Terning.snydeTerning snydeterning in snydeTerninger)
+            foreach (Terning.SnydeTerning snydeterning in snydeTerninger)
             {
-                Console.Write("[{0}] ", snydeterning.current);
+                Console.Write("[{0}] ", snydeterning.Current);
                 FirstRound = false;
             }
             Console.WriteLine();
@@ -104,9 +104,9 @@ namespace Yatzy
 
         public void RerollAll()
         {
-            foreach (Terning.snydeTerning snydeterning in snydeTerninger)
+            foreach (Terning.SnydeTerning snydeterning in snydeTerninger)
             {
-                snydeterning.Reroll();
+                snydeterning.Roll();
             }
 
             // display all dices after the are rerolled

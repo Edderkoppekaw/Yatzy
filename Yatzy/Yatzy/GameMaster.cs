@@ -14,7 +14,9 @@ namespace Yatzy
         // TODO: Better Format the output text from the console. Make it prettier overall.
 
         public Hand _hand { get; private set; } = new Hand();
-        public BægerPos _bægerpos { get; private set; } = new BægerPos();
+        public Scoreboard Scoreboard { get; set; } = new Scoreboard();
+        public Roll Roll { get; set; }
+
         private int UserChoice;
         private bool GameRunning = true;
         private int tries = Settings.antalForsøg;
@@ -32,6 +34,7 @@ namespace Yatzy
                 {
                     Console.WriteLine("You have now thrown the dice 3 times. Your last throw:");
                     _hand.ShowDices();
+
                     Console.WriteLine("Click Enter for a new round");
                     tries = Settings.antalForsøg;
                     continue;
@@ -42,11 +45,13 @@ namespace Yatzy
                     Console.WriteLine("Please chose an option: ");
                     Console.WriteLine("1.) for Rolling all 6 dices");
                     Console.WriteLine("2.) for settings");
-                    Console.WriteLine("3.) for quitting the game");
+                    Console.WriteLine("3.) for scoreboard");
+                    Console.WriteLine("4.) for quitting the game");
                 }
                 if (!_hand.FirstRound && hasRemainingTries())
                 {
-                    Console.WriteLine("4.) Chose the dices you want to reroll with ',' symbol between");
+                    Console.WriteLine("5.) Chose the dices you want to reroll with ',' symbol between");
+                    Console.WriteLine("6.) End turn");
                 }
 
 
@@ -60,35 +65,47 @@ namespace Yatzy
                     switch (UserChoice)
                     {
                         case 1:
-                            if (Settings.snyd == true)
-                            {
-                                _bægerpos.RerollAll();
-                                tries--;
-                            }
-                            else
-                            {
-                                _hand.RerollAll();
-                                tries--;
-                            }
+                            tries--;
+                            _hand.RerollAll();
+                            PrintOutcomes();
+
                             break;
 
                         case 2:
                             Console.Clear();
-                             new Settings();
+                            new Settings();
+                            _hand.CreateDice();
                           
                             break;
 
                         case 3:
+                            Console.WriteLine("===============");
+                            Scoreboard.Print();
+                            Console.WriteLine("===============");
+                            break;
+
+                        case 4:
                             GameRunning = false;
                             Console.WriteLine("Thx for playing byebye - enter to quit");
                             break;
 
-                        case 4:
+                        case 5:
                             tries--;
-                            _hand.KeepDices(AskUserForDices());
+                            _hand.RerollDices(AskUserForDices());
+                            PrintOutcomes();
+
                             break;
 
+                        case 6:
+                            Console.WriteLine("Which outcome to choose?");
 
+                            var outcomeIndex = Console.ReadLine()[0] - 'a';
+                            if (outcomeIndex >= 0 && outcomeIndex < Roll.Outcomes.Count)
+                            {
+                                Roll.UseOutcome(outcomeIndex);
+                                tries = 0;
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -106,17 +123,17 @@ namespace Yatzy
 
         }
 
+        private void PrintOutcomes()
+        {
+            Roll = new Roll(Scoreboard, _hand.Terninger);
+            Roll.Print();
+            Console.WriteLine();
+        }
+
         private int[] AskUserForDices()
         {
-            Console.WriteLine("What dices you want to keep?\nPlease seperate it with a comma like so 0,0,0 (for example)");
-            if (Settings.snyd == true)
-            {
-                _bægerpos.ShowDices();
-            }
-            else
-            {
-                _hand.ShowDices();
-            }
+            Console.WriteLine("What dices you want to reroll? Please seperate it with a comma like so 0,0,0 (for example)");
+            _hand.ShowDices();
             
             string userInput = Console.ReadLine();
 
@@ -124,19 +141,12 @@ namespace Yatzy
 
             int[] toReroll = new int[chosenDices.Length];
 
-
             for (int i = 0; i < chosenDices.Length; i++)
             {
-                toReroll[i] = int.Parse(chosenDices[i]);
-            }
-
-            foreach (int value in toReroll)
-            {
-                Console.Write(value);
+                toReroll[i] = int.Parse(chosenDices[i]) - 1;
             }
 
             return toReroll;
-
         }
 
         private bool hasRemainingTries()

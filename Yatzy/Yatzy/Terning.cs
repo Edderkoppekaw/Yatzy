@@ -6,57 +6,32 @@ namespace Yatzy
 {
     public class Terning
     {
-        public int current;
+        public int Current;
         public Random rand = new Random();
 
 
 
         public Terning()
         {
-
             Roll();
-
         }
 
         public override string ToString()
         {
-            return "You rolled " + current;
+            return "You rolled " + Current;
         }
 
         public virtual int Roll()
         {
-            current = rand.Next(1, 7);
-            return current;
+            Current = rand.Next(1, 7);
 
-        }
-        public virtual int Reroll()
-        {
-
-            current = rand.Next(1, 7);
-            return current;
-
+            return Current;
         }
 
-
-
-        public class snydeTerning : Terning
+        public class SnydeTerning : Terning
         {
-            private int probability;
-
-            public bool _IsPositiveBiased { get; set; }
-            public int _threshold { get; set; }
-
-
-            public snydeTerning(int threshold, bool IsPositiveBiased)
-            {
-                _threshold = threshold;
-                _IsPositiveBiased = IsPositiveBiased;
-            }
-
-            public snydeTerning(int probability)
-            {
-                this.probability = probability;
-            }
+            public bool _IsPositiveBiased => Settings.bias;
+            public int _threshold => Settings.snydeGrad;
 
             public override int Roll()
             {
@@ -64,54 +39,29 @@ namespace Yatzy
                 var probability = rand.Next(0, 100);
 
                 if (_IsPositiveBiased == true)
-                    current = positiveRoll(probability);
+                    Current = positiveRoll(probability);
                 else
-                    current = negativeRoll(probability);
-                return current;
-            }
-
-            public override int Reroll()
-            {
-                base.Reroll();
-                var probability = rand.Next(0, 100);
-
-                if (_IsPositiveBiased == true)
-                    current = positiveRoll(probability);
-                else
-                    current = negativeRoll(probability);
-                return current;
-
-
+                    Current = negativeRoll(probability);
+                return Current;
             }
 
             private int positiveRoll(int probability)
             {
-                int value = current;
+                int value = Current;
                 if (probability <= _threshold && value != 6)
                     value += 1;
-                return value;
 
+                return value;
             }
 
             private int negativeRoll(int probability)
             {
-                int value = current;
+                int value = Current;
 
                 if (probability <= _threshold && value != 1)
                     value -= 1;
                 return value;
-
-
             }
-
-
-
-
-
-
-
-
-
         }
 
     }
