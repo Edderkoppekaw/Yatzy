@@ -119,14 +119,16 @@ namespace Yatzy
         {
             var scores = new List<int>();
 
+            List<int> AcesList = new List<int>();
 
-            for (int i = 1; i <= 6; i++)
+            for (int j = 0; j < 6; j++)
             {
-                diceList.Count(i => i == 1);
-                scores.Add(i * 1);
-
-
+                if (diceList[j] == 1)
+                {
+                    AcesList.Add(1);
+                }
             }
+            scores.Add(AcesList.Count * 1);
             return scores;
         }
     }
@@ -142,13 +144,16 @@ namespace Yatzy
             var scores = new List<int>();
 
 
-            for (int i = 1; i <= 6; i++)
+            List<int> twosList = new List<int>();
+
+            for (int j = 0; j < 6; j++)
             {
-                diceList.Count(i => i == 2);
-                scores.Add(i * 2);
-
-
+                if (diceList[j] == 2)
+                {
+                    twosList.Add(1);
+                }
             }
+            scores.Add(twosList.Count * 2);
             return scores;
         }
     }
@@ -163,14 +168,16 @@ namespace Yatzy
         {
             var scores = new List<int>();
 
+            List<int> threesList = new List<int>();
 
-            for (int i = 1; i <= 6; i++)
+            for (int j = 0; j < 6; j++)
             {
-                diceList.Count(i => i == 3);
-                scores.Add(i * 3);
-
-
+                if (diceList[j] == 3)
+                {
+                    threesList.Add(1);
+                }
             }
+            scores.Add(threesList.Count * 3);
             return scores;
         }
     }
@@ -186,13 +193,16 @@ namespace Yatzy
             var scores = new List<int>();
 
 
-            for (int i = 1; i <= 6; i++)
+            List<int> foursList = new List<int>();
+
+            for (int j = 0; j < 6; j++)
             {
-                diceList.Count(i => i == 4);
-                scores.Add(i * 4);
-
-
+                if (diceList[j] == 4)
+                {
+                    foursList.Add(1);
+                }
             }
+            scores.Add(foursList.Count * 4);
             return scores;
         }
     }
@@ -208,13 +218,16 @@ namespace Yatzy
             var scores = new List<int>();
 
 
-            for (int i = 1; i <= 6; i++)
+            List<int> fivesList = new List<int>();
+
+            for (int j = 0; j < 6; j++)
             {
-                diceList.Count(i => i == 5);
-                scores.Add(i * 5);
-
-
+                if (diceList[j] == 5)
+                {
+                    fivesList.Add(1);
+                }
             }
+            scores.Add(fivesList.Count * 5);
             return scores;
         }
     }
@@ -229,18 +242,16 @@ namespace Yatzy
         {
             var scores = new List<int>();
 
-            int sixes = 0;
+            List<int> sixesList = new List<int>();
 
             for (int j = 0; j < 6; j++)
             {
                 if (diceList[j] == 6)
                 {
-                    sixes++;
+                    sixesList.Add(1);
                 }
-
-                scores.Add(sixes * 6);
             }
-
+            scores.Add(sixesList.Count * 6);
             return scores;
         }
     }
@@ -254,20 +265,22 @@ namespace Yatzy
         public override List<int> GetScores(List<int> diceList)
         {
             var scores = new List<int>();
+                
+            List<int> pairList = new List<int>();
 
             for (int i = 1; i <= 6; i++)
             {
-                int count = 0;
-
                 for (int j = 0; j < 6; j++)
                 {
                     if (diceList[j] == i)
-                        count++;
-                    if (count == 2)
-                        scores.Add(2 * i);
+                        pairList.Add(1);
                 }
-
+                if (pairList.Count == 2)
+                {
+                    scores.Add(2 * i);
+                }
             }
+            
             return scores;
         }
     }
@@ -281,6 +294,8 @@ namespace Yatzy
         public override List<int> GetScores(List<int> diceList)
         {
             var scores = new List<int>();
+            List<int> pair1List = new List<int>();
+            List<int> pair2List = new List<int>();
             for (int i = 1; i <= 6; i++)
             {
                 for (int k = 1; k <= 6; k++)
@@ -288,20 +303,17 @@ namespace Yatzy
                     if (i == k)
                         continue;
 
-
-                    int count1 = 0;
-                    int count2 = 0;
                     for (int j = 0; j < 6; j++)
                     {
                         if (diceList[j] == i)
-                            count1++;
+                            pair1List.Add(1);
                     }
                     for (int l = 0; l < 6; l++)
                     {
                         if (diceList[l] == k)
-                            count2++;
+                            pair2List.Add(1);
                     }
-                    if (count1 == 2 && count2 == 2)
+                    if (pair1List.Count == 2 && pair2List.Count == 2)
                         scores.Add(2 * i + 2 * k);
                 }
             }
