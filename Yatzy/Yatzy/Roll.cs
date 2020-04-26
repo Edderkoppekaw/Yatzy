@@ -9,7 +9,7 @@ namespace Yatzy
     {
         public List<Outcome> Outcomes { get; set; } = new List<Outcome>();
 
-        public Roll(LowerScoreboard scoreboard, List<Terning> dice)
+        public Roll(LowerScoreboard scoreboard, List<Die> dice)
         {
             // Convert terninger to their int value
             var diceList = dice.Select(d => d.Current).ToList();
@@ -36,7 +36,7 @@ namespace Yatzy
             Outcomes = Outcomes.OrderByDescending(o => o.Points).ToList();
         }
 
-        public Roll(UpperScoreboard scoreboardUpper, List<Terning> dice)
+        public Roll(UpperScoreboard scoreboardUpper, List<Die> dice)
         {
             // Convert terninger to their int value
             var diceList = dice.Select(d => d.Current).ToList();

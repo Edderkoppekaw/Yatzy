@@ -8,14 +8,14 @@ namespace Yatzy
     {
         public bool FirstRound { get; private set; } = true; // set this to false when the user has made the first move
         // this class has a hand of all the dices in the game (o)
-        private readonly Terning.SnydeTerning[] snydeTerninger =
+        private readonly Die.BiasedDie[] snydeTerninger =
         {
-            new Terning.SnydeTerning(),
-            new Terning.SnydeTerning(),
-            new Terning.SnydeTerning(),
-            new Terning.SnydeTerning(),
-            new Terning.SnydeTerning(),
-            new Terning.SnydeTerning()
+            new Die.BiasedDie(),
+            new Die.BiasedDie(),
+            new Die.BiasedDie(),
+            new Die.BiasedDie(),
+            new Die.BiasedDie(),
+            new Die.BiasedDie()
         };
 
         // Now comes the tricky part, I need a new method where the user chooses a set number of dices which then I have to keep and reroll the others. 
@@ -92,7 +92,7 @@ namespace Yatzy
         public void ShowDices()
         {
             Console.WriteLine();
-            foreach (Terning.SnydeTerning snydeterning in snydeTerninger)
+            foreach (Die.BiasedDie snydeterning in snydeTerninger)
             {
                 Console.Write("[{0}] ", snydeterning.Current);
                 FirstRound = false;
@@ -104,7 +104,7 @@ namespace Yatzy
 
         public void RerollAll()
         {
-            foreach (Terning.SnydeTerning snydeterning in snydeTerninger)
+            foreach (Die.BiasedDie snydeterning in snydeTerninger)
             {
                 snydeterning.Roll();
             }

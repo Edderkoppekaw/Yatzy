@@ -10,7 +10,7 @@ namespace Yatzy
     {
         public bool FirstRound { get; private set; } = true; // set this to false when the user has made the first move
         // this class has a hand of all the dices in the game (o)
-        public List<Terning> Terninger { get; set; } = new List<Terning>();
+        public List<Die> Terninger { get; set; } = new List<Die>();
 
         public Hand()
         {
@@ -23,7 +23,7 @@ namespace Yatzy
 
             for (int i = 0; i < 6; i++)
             {
-                Terninger.Add(Settings.snyd ? new Terning.SnydeTerning() : new Terning());
+                Terninger.Add(Settings.cheat ? new Die.BiasedDie() : new Die());
             }
         }
 
@@ -43,7 +43,7 @@ namespace Yatzy
         public void ShowDices()
         {
             Console.WriteLine();
-            foreach (Terning terning in Terninger)
+            foreach (Die terning in Terninger)
             {
                 Console.Write("[{0}] ", terning.Current);
                 FirstRound = false;
@@ -54,7 +54,7 @@ namespace Yatzy
 
         public void RerollAll()
         {
-            foreach (Terning terning in Terninger)
+            foreach (Die terning in Terninger)
             {
                 terning.Roll();
             }

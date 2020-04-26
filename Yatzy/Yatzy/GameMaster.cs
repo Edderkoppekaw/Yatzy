@@ -21,8 +21,9 @@ namespace Yatzy
 
         private int UserChoice;
         private bool GameRunning = true;
-        private int tries = Settings.antalForsøg;
+        private int tries = Settings.attemptsLeft;
         private int Totalscore = 0;
+        private int totaltriesmain = Settings.totaltries;
 
         // this is the master which asks all the questions and keeps track of the answers and decides what to do with it
         public void Game()
@@ -39,7 +40,7 @@ namespace Yatzy
                     _hand.ShowDices();
 
                     Console.WriteLine("Click Enter for a new round");
-                    tries = Settings.antalForsøg;
+                    tries = Settings.attemptsLeft;
                     continue;
                 }
                 else
@@ -51,7 +52,7 @@ namespace Yatzy
                     Console.WriteLine("3.) for scoreboard");
                     Console.WriteLine("4.) for quitting the game");
                 }
-                if (!_hand.FirstRound && hasRemainingTries())
+                if (!_hand.FirstRound && tries != totaltriesmain)
                 {
                     Console.WriteLine("5.) Choose the dices you want to reroll with ',' symbol between");
                     Console.WriteLine("6.) End turn");
@@ -78,7 +79,7 @@ namespace Yatzy
                             Console.Clear();
                             new Settings();
                             _hand.CreateDice();
-                          
+
                             break;
 
                         case 3:
@@ -109,13 +110,16 @@ namespace Yatzy
                             break;
 
                         case 6:
-                            Console.WriteLine("Which outcome to choose?");
-
-                            var outcomeIndex = Console.ReadLine()[0] - 'a';
-                            if (outcomeIndex >= 0 && outcomeIndex < Roll.Outcomes.Count)
+                            if (tries != totaltriesmain)
                             {
-                                Roll.UseOutcome(outcomeIndex);
-                                tries = 0;
+                                Console.WriteLine("Which outcome to choose?");
+
+                                var outcomeIndex = Console.ReadLine()[0] - 'a';
+                                if (outcomeIndex >= 0 && outcomeIndex < Roll.Outcomes.Count)
+                                {
+                                    Roll.UseOutcome(outcomeIndex);
+                                    tries = totaltriesmain;
+                                }
                             }
                             break;
                         default:
@@ -155,7 +159,7 @@ namespace Yatzy
         {
             Console.WriteLine("What dices you want to reroll? Please seperate it with a comma like so 0,0,0 (for example)");
             _hand.ShowDices();
-            
+
             string userInput = Console.ReadLine();
 
             string[] chosenDices = userInput.Split(',');
