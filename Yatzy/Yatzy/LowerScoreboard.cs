@@ -18,6 +18,8 @@ namespace Yatzy
             Rules.Add(new PairCheck());
             Rules.Add(new TwoPairsCheck());
             Rules.Add(new FullHouseCheck());
+            Rules.Add(new SmallStraightCheck());
+            Rules.Add(new LargeStraightCheck());
         }
 
         public void Print()

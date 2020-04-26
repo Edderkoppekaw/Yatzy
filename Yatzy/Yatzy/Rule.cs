@@ -229,18 +229,20 @@ namespace Yatzy
         {
             var scores = new List<int>();
 
+            int sixes = 0;
 
-            for (int i = 1; i <= 6; i++)
+            for (int j = 0; j < 6; j++)
             {
-                diceList.Count(i => i == 6);
-                scores.Add(i * 6);
+                if (diceList[j] == 6)
+                {
+                    sixes++;
+                }
 
-
+                scores.Add(sixes * 6);
             }
+
             return scores;
         }
-
-
     }
     public class PairCheck : Rule
     {
@@ -299,8 +301,8 @@ namespace Yatzy
                         if (diceList[l] == k)
                             count2++;
                     }
-                    if (count1 == 2 && count2 == 2) ;
-                    scores.Add(2 * i + 2 * k);
+                    if (count1 == 2 && count2 == 2)
+                        scores.Add(2 * i + 2 * k);
                 }
             }
             return scores;
@@ -338,8 +340,8 @@ namespace Yatzy
                         if (diceList[l] == k)
                             count2++;
                     }
-                    if (count1 == 2 && count2 == 3) ;
-                    scores.Add(2 * i + 3 * k);
+                    if (count1 == 2 && count2 == 3)
+                        scores.Add(2 * i + 3 * k);
                 }
             }
             return scores;
@@ -356,29 +358,91 @@ namespace Yatzy
         public override List<int> GetScores(List<int> diceList)
         {
             var scores = new List<int>();
+
             for (int i = 1; i <= 6; i++)
             {
-                for (int k = 1; k <= 6; k++)
+                int count1 = 0;
+                int count2 = 0;
+                int count3 = 0;
+                int count4 = 0;
+                int count5 = 0;
+                for (int j = 0; j < 6; j++)
                 {
-                    if (i == k)
-                        continue;
-
-
-                    int count1 = 0;
-                    int count2 = 0;
-                    for (int j = 0; j < 6; j++)
-                    {
-                        if (diceList[j] == i)
-                            count1++;
-                    }
-                    for (int l = 0; l < 6; l++)
-                    {
-                        if (diceList[l] == k)
-                            count2++;
-                    }
-                    if (count1 == 2 && count2 == 3) ;
-                    scores.Add(2 * i + 3 * k);
+                    if (diceList[j] == 1)
+                        count1++;
                 }
+                for (int k = 0; k < 6; k++)
+                {
+                    if (diceList[k] == 2)
+                        count2++;
+                }
+                for (int l = 0; l < 6; l++)
+                {
+                    if (diceList[l] == 3)
+                        count3++;
+                }
+                for (int m = 0; m < 6; m++)
+                {
+                    if (diceList[m] == 4)
+                        count4++;
+                }
+                for (int n = 0; n < 6; n++)
+                {
+                    if (diceList[n] == 5)
+                        count5++;
+                }
+                if (count1 >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 && count5 >= 1)
+                    scores.Add(15);
+            }
+            return scores;
+        }
+    }
+
+    public class LargeStraightCheck : Rule
+    {
+        public override string GetName()
+        {
+            return "Large Straight";
+        }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+            for (int i = 1; i <= 6; i++)
+            {
+                int count1 = 0;
+                int count2 = 0;
+                int count3 = 0;
+                int count4 = 0;
+                int count5 = 0;
+                for (int j = 0; j < 6; j++)
+                {
+                    if (diceList[j] == 2)
+                        count1++;
+                }
+                for (int k = 0; k < 6; k++)
+                {
+                    if (diceList[k] == 3)
+                        count2++;
+                }
+                for (int l = 0; l < 6; l++)
+                {
+                    if (diceList[l] == 4)
+                        count3++;
+                }
+                for (int m = 0; m < 6; m++)
+                {
+                    if (diceList[m] == 5)
+                        count4++;
+                }
+                for (int n = 0; n < 6; n++)
+                {
+                    if (diceList[n] == 6)
+                        count5++;
+                }
+                if (count1 >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 && count5 >= 1)
+                    scores.Add(20);
             }
             return scores;
         }

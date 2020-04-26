@@ -22,6 +22,7 @@ namespace Yatzy
         private int UserChoice;
         private bool GameRunning = true;
         private int tries = Settings.antalForsøg;
+        private int Totalscore = 0;
 
         // this is the master which asks all the questions and keeps track of the answers and decides what to do with it
         public void Game()
@@ -34,7 +35,7 @@ namespace Yatzy
 
                 if (hasRemainingTries() == false)
                 {
-                    Console.WriteLine("You have now thrown the dice 3 times. Your last throw:");
+                    Console.WriteLine("That was your last throw. You rolled:");
                     _hand.ShowDices();
 
                     Console.WriteLine("Click Enter for a new round");
@@ -44,7 +45,7 @@ namespace Yatzy
                 else
                 {
 
-                    Console.WriteLine("Please chose an option: ");
+                    Console.WriteLine("Please choose an option: ");
                     Console.WriteLine("1.) for Rolling all 6 dices");
                     Console.WriteLine("2.) for settings");
                     Console.WriteLine("3.) for scoreboard");
@@ -52,7 +53,7 @@ namespace Yatzy
                 }
                 if (!_hand.FirstRound && hasRemainingTries())
                 {
-                    Console.WriteLine("5.) Chose the dices you want to reroll with ',' symbol between");
+                    Console.WriteLine("5.) Choose the dices you want to reroll with ',' symbol between");
                     Console.WriteLine("6.) End turn");
                 }
 
@@ -82,7 +83,16 @@ namespace Yatzy
 
                         case 3:
                             Console.WriteLine("===============");
-                            Scoreboard.Print();
+                            if (UpScoreboard.Rules.All(r => r.Used))
+                            {
+                                Scoreboard.Print();
+                                Totalscore = UpScoreboard.Sum() + Scoreboard.Sum();
+                                Console.WriteLine("Total score:" + Totalscore);
+                                if (UpScoreboard.Sum() >= 63)
+                                    Totalscore = UpScoreboard.Sum() + Scoreboard.Sum() + 50;
+                            }
+                            else
+                                UpScoreboard.Print();
                             Console.WriteLine("===============");
                             break;
 
@@ -127,9 +137,18 @@ namespace Yatzy
 
         private void PrintOutcomes()
         {
-            Roll = new Roll(Scoreboard, _hand.Terninger);
-            Roll.Print();
-            Console.WriteLine();
+            if (UpScoreboard.Rules.All(r => r.Used))
+            {
+                Roll = new Roll(Scoreboard, _hand.Terninger);
+                Roll.Print();
+                Console.WriteLine();
+            }
+            else
+            {
+                Roll = new Roll(UpScoreboard, _hand.Terninger);
+                Roll.Print();
+                Console.WriteLine();
+            }
         }
 
         private int[] AskUserForDices()
