@@ -74,7 +74,7 @@ namespace Yatzy
                 {
                     Console.Clear();
                     Console.WriteLine("You have finished the game");
-                    Console.WriteLine("Your total score is" + Totalscore);
+                    Console.WriteLine("Your total score is " + Totalscore);
                 }
 
                 if (!int.TryParse(Console.ReadLine(), out UserChoice))
