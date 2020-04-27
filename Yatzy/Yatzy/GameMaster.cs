@@ -161,18 +161,12 @@ namespace Yatzy
 
 
         }
-        //Hackerman we are in need of your guidance
         private void PrintOutcomes()
         {
             if (UpScoreboard.Rules.All(r => r.Used))
             {
-                Roll = new Roll(Scoreboard, _hand.Dice);
-                Roll.Print();
-                Console.WriteLine();
-            }
-            else
-            {
-                Roll = new Roll(UpScoreboard, _hand.Dice);
+                // Create a roll from the current hand, then print the possible outcomes of it
+                Roll = UpScoreboard.Rules.All(r => r.Used) ? new Roll(Scoreboard, _hand.Dice) : new Roll(UpScoreboard, _hand.Dice);
                 Roll.Print();
                 Console.WriteLine();
             }
