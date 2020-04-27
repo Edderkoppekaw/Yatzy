@@ -134,9 +134,13 @@ namespace Yatzy
                             break;
 
                         case 5:
-                            tries--;
-                            _hand.RerollDices(AskUserForDices());
-                            PrintOutcomes();
+                            if (tries != totaltriesmain)
+                            {
+                                tries--;
+                                _hand.RerollDices(AskUserForDices());
+                                PrintOutcomes();
+                                
+                            }
                             break;
 
                         case 6:
