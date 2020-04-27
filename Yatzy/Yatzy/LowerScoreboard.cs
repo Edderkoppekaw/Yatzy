@@ -20,7 +20,5 @@ namespace Yatzy
             Rules.Add(new SmallStraightCheck());
             Rules.Add(new LargeStraightCheck());
         }
-        public void kasper()
-        { }
     }
 }
