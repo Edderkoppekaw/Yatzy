@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Yatzy
@@ -30,6 +31,13 @@ namespace Yatzy
         {
 
             Console.WriteLine("---------- Welcome to Yatzy ----------");
+            Console.WriteLine("Please enter your name");
+            string Username = Console.ReadLine();
+            if (Username == "Kristian Torp")
+            {
+                Console.WriteLine("Hej Torp, på forhånd tak for 12-tallet :)");
+                Thread.Sleep(3000);
+            }
 
             while (GameRunning)
             {
@@ -50,7 +58,7 @@ namespace Yatzy
                 else
                 {
 
-                    Console.WriteLine("Please choose an option: ");
+                    Console.WriteLine("Please choose an option:");
                     Console.WriteLine("1.) for Rolling all 6 dices");
                     Console.WriteLine("2.) for settings");
                     Console.WriteLine("3.) for scoreboard");
@@ -98,7 +106,7 @@ namespace Yatzy
 
                         case 3:
                             Console.Clear();
-                            Console.WriteLine("Scoreboard: ");
+                            Console.WriteLine("Scoreboard: " + Username);
                             Console.WriteLine("===============");
                             Console.WriteLine("Upper Scoreboard: ");
                             if (UpScoreboard.Rules.All(r => r.Used))
@@ -129,7 +137,6 @@ namespace Yatzy
                             tries--;
                             _hand.RerollDices(AskUserForDices());
                             PrintOutcomes();
-
                             break;
 
                         case 6:
