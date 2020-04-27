@@ -80,6 +80,7 @@ namespace Yatzy
                         Totalscore += 50;
                     }
                     Console.WriteLine("Total score: " + Totalscore);
+                    GameRunning = false;
                 }
 
                 if (!int.TryParse(Console.ReadLine(), out UserChoice))
