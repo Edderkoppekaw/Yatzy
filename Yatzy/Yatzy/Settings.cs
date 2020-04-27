@@ -9,7 +9,6 @@ namespace Yatzy
         public static bool cheat = false;
         public static bool bias;
         public static int cheatingDegree;
-        public static int attemptsLeft = 3;
         public static int totaltries = 3;
 
        public Settings ()
@@ -24,7 +23,6 @@ namespace Yatzy
             string input = Console.ReadLine();
             int attempts;
             Int32.TryParse(input, out attempts);
-            attemptsLeft = attempts;
             totaltries = attempts;
 
 
@@ -76,7 +74,7 @@ namespace Yatzy
         public void ShowSettings()
         {
             Console.WriteLine("===================");
-            Console.WriteLine("Amount of attempts per round:" + attemptsLeft);
+            Console.WriteLine("Amount of attempts per round:" + totaltries);
             Console.WriteLine("Cheat" + cheat);
             Console.WriteLine("Pos bias: " + bias);
             Console.WriteLine("Cheating degree: " + cheatingDegree);

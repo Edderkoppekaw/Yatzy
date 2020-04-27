@@ -21,9 +21,9 @@ namespace Yatzy
 
         private int UserChoice;
         private bool GameRunning = true;
-        private int tries = Settings.attemptsLeft;
+        private int tries = Settings.totaltries;
         private int Totalscore = 0;
-        private int totaltriesmain = Settings.totaltries;
+        private int totaltriesmain => Settings.totaltries;
 
         // this is the master which asks all the questions and keeps track of the answers and decides what to do with it
         public void Game()
@@ -62,6 +62,12 @@ namespace Yatzy
                     Console.WriteLine("6.) End turn");
                 }
 
+                if (UpScoreboard.Rules.All(r => r.Used) && Scoreboard.Rules.All(r => r.Used))
+                {
+                    Console.Clear();
+                    Console.WriteLine("You have finished the game");
+                    Console.WriteLine("Your total score is" + Totalscore);
+                }
 
                 if (!int.TryParse(Console.ReadLine(), out UserChoice))
                 {
@@ -85,6 +91,7 @@ namespace Yatzy
                         case 2:
                             Console.Clear();
                             new Settings();
+                            tries = Settings.totaltries;
                             _hand.CreateDice();
 
                             break;
@@ -93,14 +100,20 @@ namespace Yatzy
                             Console.Clear();
                             Console.WriteLine("Scoreboard: ");
                             Console.WriteLine("===============");
+                            Console.WriteLine("Upper Scoreboard: ");
                             if (UpScoreboard.Rules.All(r => r.Used))
                             {
-                                
+                                UpScoreboard.Print();
+                                Console.WriteLine("===============");
+                                Console.WriteLine("Lower Scoreboard: ");
                                 Scoreboard.Print();
                                 Totalscore = UpScoreboard.Sum() + Scoreboard.Sum();
-                                Console.WriteLine("Total score:" + Totalscore);
                                 if (UpScoreboard.Sum() >= 63)
-                                    Totalscore = UpScoreboard.Sum() + Scoreboard.Sum() + 50;
+                                {
+                                    Totalscore += 50;
+                                }
+                                Console.WriteLine("===============");
+                                Console.WriteLine("Total score:" + Totalscore);
                             }
                             else
                                 UpScoreboard.Print();

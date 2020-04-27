@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Yatzy
 {
-    class LowerScoreboard
+    class LowerScoreboard : Scoreboard
     {
-        public List<Rule> Rules { get; set; } = new List<Rule>();
 
         public LowerScoreboard()
         {
@@ -21,25 +20,7 @@ namespace Yatzy
             Rules.Add(new SmallStraightCheck());
             Rules.Add(new LargeStraightCheck());
         }
-
-        public void Print()
-        {
-            var sum = 0;
-            foreach (var rule in Rules)
-            {
-                if (rule.Used)
-                {
-                    Console.WriteLine($"{rule.GetName()}: {rule.Points}");
-                    sum += rule.Points;
-                }
-            }
-
-            Console.WriteLine($"Sum of points: {sum}");
-        }
-
-        public int Sum()
-        {
-            return Rules.Where(r => r.Used).Select(r => r.Points).Sum();
-        }
+        public void kasper()
+        { }
     }
 }
