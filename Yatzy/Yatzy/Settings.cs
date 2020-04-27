@@ -30,10 +30,6 @@ namespace Yatzy
             Console.WriteLine("Do you wish to cheat? Y/N"); // convert to upper
             string answer = Console.ReadLine();
             string choice = answer.ToUpper();
-            if (choice != "Y" || choice != "N")
-            {
-                Console.WriteLine("Please input either Y or N");
-            }
             if (choice == "Y")
             {
                 cheat = true;
@@ -48,10 +44,6 @@ namespace Yatzy
                 Console.WriteLine("Do you want your dice to be negatively biased or positively biased? P/N");
                 string PosNeg = Console.ReadLine(); // convert to upper
                 string ansPosNeg = PosNeg.ToUpper();
-                if (ansPosNeg != "P" || ansPosNeg != "N")
-                {
-                    Console.WriteLine("Please input either P or N");
-                }
                 if (ansPosNeg == "P")
                 {
                     bias = true;
