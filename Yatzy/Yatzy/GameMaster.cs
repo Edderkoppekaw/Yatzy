@@ -162,15 +162,13 @@ namespace Yatzy
 
         }
         private void PrintOutcomes()
-        {
-            if (UpScoreboard.Rules.All(r => r.Used))
             {
                 // Create a roll from the current hand, then print the possible outcomes of it
                 Roll = UpScoreboard.Rules.All(r => r.Used) ? new Roll(Scoreboard, _hand.Dice) : new Roll(UpScoreboard, _hand.Dice);
                 Roll.Print();
                 Console.WriteLine();
             }
-        }
+        
 
         
         private int[] AskUserForDices()
