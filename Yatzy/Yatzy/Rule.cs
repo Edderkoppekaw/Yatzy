@@ -399,8 +399,6 @@ namespace Yatzy
         public override List<int> GetScores(List<int> diceList)
         {
             var scores = new List<int>();
-
-            for (int i = 1; i <= 6; i++)
             {
                 List<int> twoList = new List<int>();
                 List<int> threeList = new List<int>();
