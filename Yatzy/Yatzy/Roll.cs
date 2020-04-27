@@ -18,14 +18,14 @@ namespace Yatzy
             {
                 if (!rule.Used)
                 {
-                    var ruleScores = rule.GetScores(diceList);
+                    var ruleScores = rule.GetScores(diceList).Distinct();
                     foreach (var score in ruleScores)
                     {
                         Outcomes.Add(new Outcome(rule, score));
                     }
 
                     // If no outcomes from rule, add zero score option
-                    if (ruleScores.Count == 0)
+                    if (ruleScores.Count() == 0)
                     {
                         Outcomes.Add(new Outcome(rule, 0));
                     }
@@ -45,14 +45,14 @@ namespace Yatzy
             {
                 if (!rule.Used)
                 {
-                    var ruleScores = rule.GetScores(diceList);
+                    var ruleScores = rule.GetScores(diceList).Distinct();
                     foreach (var score in ruleScores)
                     {
                         Outcomes.Add(new Outcome(rule, score));
                     }
 
                     // If no outcomes from rule, add zero score option
-                    if (ruleScores.Count == 0)
+                    if (ruleScores.Count() == 0)
                     {
                         Outcomes.Add(new Outcome(rule, 0));
                     }
@@ -91,7 +91,8 @@ namespace Yatzy
 
         public override string ToString()
         {
-            return $"{Rule.GetName()}, {Points} pts";
-        }
+           return $"{Rule.GetName()}, {Points} pts";
+            
+        }   
     }
 }
