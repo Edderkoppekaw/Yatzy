@@ -6,34 +6,34 @@ namespace Yatzy
 {
     public class Die
     {
-        public int Current;
-        public Random rand = new Random();
+        public int Current; //The eyes on the die
+        public Random rand = new Random(); //method in c# to generate a random number
 
 
 
-        public Die()
+        public Die() //A constructor to roll the die
         {
             Roll();
         }
 
-        public override string ToString()
+        public override string ToString() //Shows what you have rolled
         {
             return "You rolled " + Current;
         }
 
-        public virtual int Roll()
+        public virtual int Roll() //Method for rolling the die.
         {
             Current = rand.Next(1, 7);
 
             return Current;
         }
 
-        public class BiasedDie : Die
+        public class BiasedDie : Die //inherits from die and adds on new functions
         {
-            public bool _IsPositiveBiased => Settings.bias;
-            public int _threshold => Settings.cheatingDegree;
+            public bool _IsPositiveBiased => Settings.bias; //Takes user input from settings which determines whether the die is positive or negative biased
+            public int _threshold => Settings.cheatingDegree; //Takes user input and determines to what degree the user is cheating
 
-            public override int Roll()
+            public override int Roll() //Overrides the Roll method and makes the roll either positive (+1) or negative (-1), determined by _isPositiveBiased (bool). 
             {
                 base.Roll();
                 var probability = rand.Next(0, 100);
@@ -45,7 +45,7 @@ namespace Yatzy
                 return Current;
             }
 
-            private int positiveRoll(int probability)
+            private int positiveRoll(int probability) //if probability is lower or equal to threshold, and die isn't a 6, +1
             {
                 int value = Current;
                 if (probability <= _threshold && value != 6)
@@ -54,7 +54,7 @@ namespace Yatzy
                 return value;
             }
 
-            private int negativeRoll(int probability)
+            private int negativeRoll(int probability) //same as positiveROll, except -1 instead of +1. 
             {
                 int value = Current;
 

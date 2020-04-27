@@ -11,7 +11,7 @@ namespace Yatzy
 
         public Roll(Scoreboard scoreboard, List<Die> dice)
         {
-            // Convert terninger to their int value
+            // Convert dice to their int value
             var diceList = dice.Select(d => d.Current).ToList();
             foreach (var rule in scoreboard.Rules)
             {
@@ -32,7 +32,7 @@ namespace Yatzy
             }
             Outcomes = Outcomes.OrderByDescending(o => o.Points).ToList();
         }
-        public void Print()
+        public void Print() //Prints the possible outcomes
         {
             for (var i = 0; i < Outcomes.Count; i++)
             {
@@ -40,7 +40,7 @@ namespace Yatzy
             }
         }
 
-        public void UseOutcome(int index)
+        public void UseOutcome(int index) //Updates values for the outcome choosen by the player. 
         {
             var outcome = Outcomes[index];
             outcome.Rule.Used = true;

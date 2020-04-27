@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Yatzy
 {
-    class LowerScoreboard : Scoreboard
+    class LowerScoreboard : Scoreboard //Inherits from scoreboard and add rules to the lower scoreboard
     {
 
         public LowerScoreboard()

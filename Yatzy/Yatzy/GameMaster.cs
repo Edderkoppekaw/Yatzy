@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Yatzy
 {
+
+    
     class GameMaster
     {
 
-        //TODO: Refactoring that code to make it a bit better too read
-        // TODO: Maybe add a counter where you see how much life you have left
-        // TODO: Better Format the output text from the console. Make it prettier overall.
+   
 
         public Hand _hand { get; private set; } = new Hand();
         public LowerScoreboard Scoreboard { get; set; } = new LowerScoreboard();
@@ -26,8 +26,8 @@ namespace Yatzy
         private int Totalscore = 0;
         private int totaltriesmain => Settings.totaltries;
 
-        // this is the master which asks all the questions and keeps track of the answers and decides what to do with it
-        public void Game()
+        // this is the master which asks all the questions and keeps track of the answers and decides what to do with it aka the main menu
+        public void Game() 
         {
 
             Console.WriteLine("---------- Welcome to Yatzy ----------");
@@ -35,7 +35,7 @@ namespace Yatzy
             string Username = Console.ReadLine();
             if (Username == "Kristian Torp")
             {
-                Console.WriteLine("Hej Torp, på forhånd tak for 12-tallet :)");
+                Console.WriteLine("Hej Torp, på forhånd tak for 12-tallet :)"); 
                 Thread.Sleep(3000);
             }
 
@@ -121,7 +121,7 @@ namespace Yatzy
                                     Totalscore += 50;
                                 }
                                 Console.WriteLine("===============");
-                                Console.WriteLine("Total score:" + Totalscore);
+                                Console.WriteLine("Total score: " + Totalscore);
                             }
                             else
                                 UpScoreboard.Print();
@@ -161,23 +161,24 @@ namespace Yatzy
 
 
         }
-
+        //Hackerman we are in need of your guidance
         private void PrintOutcomes()
         {
             if (UpScoreboard.Rules.All(r => r.Used))
             {
-                Roll = new Roll(Scoreboard, _hand.Terninger);
+                Roll = new Roll(Scoreboard, _hand.Dice);
                 Roll.Print();
                 Console.WriteLine();
             }
             else
             {
-                Roll = new Roll(UpScoreboard, _hand.Terninger);
+                Roll = new Roll(UpScoreboard, _hand.Dice);
                 Roll.Print();
                 Console.WriteLine();
             }
         }
 
+        
         private int[] AskUserForDices()
         {
             Console.WriteLine("What dices you want to reroll? Please seperate it with a comma like so 0,0,0 (for example)");

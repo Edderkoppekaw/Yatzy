@@ -9,7 +9,8 @@ namespace Yatzy
     {
         public List<Rule> Rules { get; set; } = new List<Rule>();
 
-        public void Print()
+        //<It is a method that if the rule is used prints the name of the rule and points assigned to said rule.  
+        public void Print() 
         {
             var sum = 0;
             foreach (var rule in Rules)
@@ -24,6 +25,7 @@ namespace Yatzy
             Console.WriteLine($"Sum of points: {sum}");
         }
 
+        //Method that sums all used rules. 
         public int Sum()
         {
             return Rules.Where(r => r.Used).Select(r => r.Points).Sum();

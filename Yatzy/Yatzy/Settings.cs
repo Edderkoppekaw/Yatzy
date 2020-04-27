@@ -16,7 +16,8 @@ namespace Yatzy
             Setting();
             ShowSettings();
         }
-   
+        
+        //Takes user input and updates the instance variables. 
         public void Setting()
         {
             Console.WriteLine("How many times do you want to be able to roll dice? (2-10)"); 
@@ -71,6 +72,7 @@ namespace Yatzy
 
         }
 
+        //Show the user the settings that have been chosen for the game
         public void ShowSettings()
         {
             Console.WriteLine("===================");

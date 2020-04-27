@@ -10,7 +10,7 @@ namespace Yatzy
     {
         public bool FirstRound { get; private set; } = true; // set this to false when the user has made the first move
         // this class has a hand of all the dices in the game (o)
-        public List<Die> Terninger { get; set; } = new List<Die>();
+        public List<Die> Dice { get; set; } = new List<Die>(); 
 
         public Hand()
         {
@@ -19,42 +19,42 @@ namespace Yatzy
 
         public void CreateDice()
         {
-            Terninger.Clear();
+            Dice.Clear();
 
             for (int i = 0; i < 6; i++)
             {
-                Terninger.Add(Settings.cheat ? new Die.BiasedDie() : new Die());
+                Dice.Add(Settings.cheat ? new Die.BiasedDie() : new Die()); //Adds all the dice to our list called Dice. Based on the settings made by the user.
             }
         }
 
-        // Now comes the tricky part, I need a new method where the user chooses a set number of dices which then I have to keep and reroll the others. 
+        //We make a new method for rerolling the dice.
 
         public void RerollDices(int[] toReroll)
         {
-            for (var i = 0; i < Terninger.Count; i++)
+            for (var i = 0; i < Dice.Count; i++)
             {
                 if (toReroll.Contains(i))
-                    Terninger[i].Roll();
+                    Dice[i].Roll();
             }
 
             ShowDices();
         }
 
-        public void ShowDices()
+        public void ShowDices() //Method for showing all the dice the user has rolled.
         {
             Console.WriteLine();
-            foreach (Die terning in Terninger)
+            foreach (Die die in Dice)
             {
-                Console.Write("[{0}] ", terning.Current);
+                Console.Write("[{0}] ", die.Current);
                 FirstRound = false;
             }
             Console.WriteLine();
             Console.WriteLine();
         }
 
-        public void RerollAll()
+        public void RerollAll() //Rerolls all the dice. 
         {
-            foreach (Die terning in Terninger)
+            foreach (Die terning in Dice)
             {
                 terning.Roll();
             }

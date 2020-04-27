@@ -6,7 +6,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace Yatzy
 {
-    public abstract class Rule
+    public abstract class Rule //Since all rules is a rule, we can use an abstract class, which they can inherit from
     {
         public bool Used { get; set; }
 
@@ -32,7 +32,7 @@ namespace Yatzy
         }
     }
 
-    public abstract class NOfAKindCheck : Rule
+    public abstract class NOfAKindCheck : Rule //All the "of a kind" are basically the same thing, we just put in N for what it needs to check for
     {
         public int N { get; }
 
@@ -43,8 +43,10 @@ namespace Yatzy
 
         public override List<int> GetScores(List<int> diceList)
         {
+            //We create a list for the score of the combinations. 
             var scores = new List<int>();
 
+            //We want to count how often the selected value shows up in the list.
             for (int i = 1; i <= 6; i++)
             {
                 int count = 0;
@@ -56,7 +58,7 @@ namespace Yatzy
                 }
 
                 if (count >= N)
-                    scores.Add(N * i);
+                    scores.Add(N * i); //We add the amount of times it occured to our list and times it by the die we are looking for.
             }
 
             return scores;
@@ -83,7 +85,7 @@ namespace Yatzy
     }
 
 
-    public class YatzyCheck : NOfAKindCheck
+    public class YatzyCheck : NOfAKindCheck //Yatzy is the same as Nofakind.
     {
         public YatzyCheck() : base(6)
         {
@@ -99,7 +101,7 @@ namespace Yatzy
             var scores = base.GetScores(diceList);
             if (scores.Count > 0)
             {
-                return new List<int> { 100 };
+                return new List<int> { 100 }; //Yatzy gives a standard sum of 100. Regardless of eyes in the die.
             }
 
             return scores;
@@ -123,9 +125,9 @@ namespace Yatzy
 
             for (int j = 0; j < 6; j++)
             {
-                if (diceList[j] == 1)
+                if (diceList[j] == 1) //Checkif the die is 1.
                 {
-                    AcesList.Add(1);
+                    AcesList.Add(1); //add it to the list.
                 }
             }
             scores.Add(AcesList.Count * 1);
@@ -263,7 +265,9 @@ namespace Yatzy
         }
 
         public override List<int> GetScores(List<int> diceList)
-        {
+
+        {   
+            //We use the GroupBy method to get all the dice that show up twice or more, and gets the sum of the pair. This is a method from System.Linq.
             return diceList.GroupBy(d => d).Where(g => g.Count() >= 2).Select(d => d.Key * 2).ToList();
         }
     }
@@ -279,7 +283,7 @@ namespace Yatzy
             var eyes = diceList.GroupBy(d => d).Where(g => g.Count() >= 2).Select(d => d.Key).ToList();
 
             var scores = new List<int>();
-            foreach (var eye in eyes)
+            foreach (var eye in eyes) //we create a foreach loop to make sure we dont get the same pairs twice.
             {
                 foreach (var otherEye in eyes)
                 {
@@ -312,8 +316,8 @@ namespace Yatzy
                     if (i == k)
                         continue;
 
-
-                    int count1 = 0;
+                    //we create two counts for this rule. Full house is defined as a pair and three of a kind.
+                    int count1 = 0; 
                     int count2 = 0;
                     for (int j = 0; j < 6; j++)
                     {
@@ -326,7 +330,7 @@ namespace Yatzy
                             count2++;
                     }
                     if (count1 == 2 && count2 == 3)
-                        scores.Add(2 * i + 3 * k);
+                        scores.Add(2 * i + 3 * k); //add the sum of the counts to the scoreboard.
                 }
             }
             return scores;
@@ -373,8 +377,9 @@ namespace Yatzy
                 {
                     fiveList.Add(1);
                 }
+                //small straight is a standard sum. We just count whether all the dice show up in ours list, and add the standard sum.
                 if (oneList.Count() >= 1 && twoList.Count() >= 1 && threeList.Count() >= 1
-                    && fourList.Count() >= 1 && fiveList.Count() >= 1)
+                    && fourList.Count() >= 1 && fiveList.Count() >= 1) 
                 {
                     scores.Add(15);
                 }
