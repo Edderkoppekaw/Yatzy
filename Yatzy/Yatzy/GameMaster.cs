@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace Yatzy
 {
 
-    
+
     class GameMaster
     {
 
-   
+
 
         public Hand _hand { get; private set; } = new Hand();
         public LowerScoreboard Scoreboard { get; set; } = new LowerScoreboard();
@@ -27,17 +27,12 @@ namespace Yatzy
         private int totaltriesmain => Settings.totaltries;
 
         // this is the master which asks all the questions and keeps track of the answers and decides what to do with it aka the main menu
-        public void Game() 
+        public void Game()
         {
 
             Console.WriteLine("---------- Welcome to Yatzy ----------");
             Console.WriteLine("Please enter your name");
             string Username = Console.ReadLine();
-            if (Username == "Kristian Torp")
-            {
-                Console.WriteLine("Hej Torp, på forhånd tak for 12-tallet :)"); 
-                Thread.Sleep(3000);
-            }
 
             while (GameRunning)
             {
@@ -74,7 +69,17 @@ namespace Yatzy
                 {
                     Console.Clear();
                     Console.WriteLine("You have finished the game");
-                    Console.WriteLine("Your total score is " + Totalscore);
+                    Console.WriteLine("===============");
+                    UpScoreboard.Print();
+                    Console.WriteLine("===============");
+                    Scoreboard.Print();
+                    Console.WriteLine("===============");
+                    Totalscore = UpScoreboard.Sum() + Scoreboard.Sum();
+                    if (UpScoreboard.Sum() >= 63)
+                    {
+                        Totalscore += 50;
+                    }
+                    Console.WriteLine("Total score: " + Totalscore);
                 }
 
                 if (!int.TryParse(Console.ReadLine(), out UserChoice))
@@ -139,7 +144,7 @@ namespace Yatzy
                                 tries--;
                                 _hand.RerollDices(AskUserForDices());
                                 PrintOutcomes();
-                                
+
                             }
                             break;
 
@@ -152,12 +157,7 @@ namespace Yatzy
                         default:
                             break;
                     }
-
-
                 }
-
-
-
             }
 
             Console.ReadLine();
@@ -166,15 +166,15 @@ namespace Yatzy
 
         }
         private void PrintOutcomes()
-            {
-                // Create a roll from the current hand, then print the possible outcomes of it
-                Roll = UpScoreboard.Rules.All(r => r.Used) ? new Roll(Scoreboard, _hand.Dice) : new Roll(UpScoreboard, _hand.Dice);
-                Roll.Print();
-                Console.WriteLine();
-            }
-        
+        {
+            // Create a roll from the current hand, then print the possible outcomes of it
+            Roll = UpScoreboard.Rules.All(r => r.Used) ? new Roll(Scoreboard, _hand.Dice) : new Roll(UpScoreboard, _hand.Dice);
+            Roll.Print();
+            Console.WriteLine();
+        }
 
-        
+
+
         private int[] AskUserForDices()
         {
             Console.WriteLine("What dices you want to reroll? Please seperate it with a comma like so 0,0,0 (for example)");

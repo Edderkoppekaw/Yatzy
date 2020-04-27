@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yatzy
 {
-    class Program //Kasper er en faggot
+    class Program 
     {
         static void Main(string[] args)
         {
