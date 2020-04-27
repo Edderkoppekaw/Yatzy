@@ -276,30 +276,20 @@ namespace Yatzy
 
         public override List<int> GetScores(List<int> diceList)
         {
-            var scores = new List<int>();
-            List<int> pair1List = new List<int>();
-            List<int> pair2List = new List<int>();
-            for (int i = 1; i <= 6; i++)
-            {
-                for (int k = 1; k <= 6; k++)
-                {
-                    if (i == k)
-                        continue;
+            var eyes = diceList.GroupBy(d => d).Where(g => g.Count() >= 2).Select(d => d.Key).ToList();
 
-                    for (int j = 0; j < 6; j++)
+            var scores = new List<int>();
+            foreach (var eye in eyes)
+            {
+                foreach (var otherEye in eyes)
+                {
+                    if (eye != otherEye)
                     {
-                        if (diceList[j] == i)
-                            pair1List.Add(1);
+                        scores.Add(eye * 2 + otherEye * 2);
                     }
-                    for (int l = 0; l < 6; l++)
-                    {
-                        if (diceList[l] == k)
-                            pair2List.Add(1);
-                    }
-                    if (pair1List.Count == 2 && pair2List.Count == 2)
-                        scores.Add(2 * i + 2 * k);
                 }
             }
+
             return scores;
         }
     }
@@ -360,6 +350,7 @@ namespace Yatzy
             List<int> fourList = new List<int>();
             List<int> fiveList = new List<int>();
 
+
             for (int j = 0; j < 6; j++)
             {
                 if (diceList[j] == 1)
@@ -382,58 +373,68 @@ namespace Yatzy
                 {
                     fiveList.Add(1);
                 }
-            scores.Add(15);
+                if (oneList.Count() >= 1 && twoList.Count() >= 1 && threeList.Count() >= 1
+                    && fourList.Count() >= 1 && fiveList.Count() >= 1)
+                {
+                    scores.Add(15);
+                }
+
             }
             return scores;
         }
     }
 
-public class LargeStraightCheck : Rule
-{
-    public override string GetName()
+    public class LargeStraightCheck : Rule
     {
-        return "Large Straight";
-    }
-
-    public override List<int> GetScores(List<int> diceList)
-    {
-        var scores = new List<int>();
-
-        for (int i = 1; i <= 6; i++)
+        public override string GetName()
         {
-            List<int> twoList = new List<int>();
-            List<int> threeList = new List<int>();
-            List<int> fourList = new List<int>();
-            List<int> fiveList = new List<int>();
-            List<int> sixList = new List<int>();
-
-            for (int j = 0; j < 6; j++)
-            {
-                if (diceList[j] == 2)
-                {
-                    twoList.Add(1);
-                }
-                if (diceList[j] == 3)
-                {
-                    threeList.Add(1);
-                }
-                if (diceList[j] == 4)
-                {
-                    fourList.Add(1);
-                }
-                if (diceList[j] == 5)
-                {
-                    fiveList.Add(1);
-                }
-                if (diceList[j] == 6)
-                {
-                    sixList.Add(1);
-                }
-            }
-            scores.Add(20);
+            return "Large Straight";
         }
+
+        public override List<int> GetScores(List<int> diceList)
+        {
+            var scores = new List<int>();
+
+            for (int i = 1; i <= 6; i++)
+            {
+                List<int> twoList = new List<int>();
+                List<int> threeList = new List<int>();
+                List<int> fourList = new List<int>();
+                List<int> fiveList = new List<int>();
+                List<int> sixList = new List<int>();
+
+                for (int j = 0; j < 6; j++)
+                {
+                    if (diceList[j] == 2)
+                    {
+                        twoList.Add(1);
+                    }
+                    if (diceList[j] == 3)
+                    {
+                        threeList.Add(1);
+                    }
+                    if (diceList[j] == 4)
+                    {
+                        fourList.Add(1);
+                    }
+                    if (diceList[j] == 5)
+                    {
+                        fiveList.Add(1);
+                    }
+                    if (diceList[j] == 6)
+                    {
+                        sixList.Add(1);
+                    }
+                    if (twoList.Count() >= 1 && threeList.Count() >= 1
+                && fourList.Count() >= 1 && fiveList.Count() >= 1 && sixList.Count() >= 1)
+                    {
+                        scores.Add(20);
+                    }
+                }
+
+            }
             return scores;
+        }
     }
-}
 
 }

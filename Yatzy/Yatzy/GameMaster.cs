@@ -36,11 +36,15 @@ namespace Yatzy
 
                 if (hasRemainingTries() == false)
                 {
-                    Console.WriteLine("That was your last throw. You rolled:");
-                    _hand.ShowDices();
+                    Console.WriteLine("Which outcome to choose?");
 
-                    Console.WriteLine("Click Enter for a new round");
-                    tries = Settings.attemptsLeft;
+                    var outcomeIndex = Console.ReadLine()[0] - 'a';
+                    if (outcomeIndex >= 0 && outcomeIndex < Roll.Outcomes.Count)
+                    {
+                        Roll.UseOutcome(outcomeIndex);
+                        tries = totaltriesmain;
+                    }
+                    Console.Clear();
                     continue;
                 }
                 else
@@ -70,9 +74,12 @@ namespace Yatzy
                     {
                         case 1:
                             tries--;
+                            Console.Clear();
+                            Console.WriteLine("You rolled:");
                             _hand.RerollAll();
                             PrintOutcomes();
-
+                            Console.WriteLine("Remaining rolls: " + tries);
+                            Console.WriteLine();
                             break;
 
                         case 2:
@@ -83,9 +90,12 @@ namespace Yatzy
                             break;
 
                         case 3:
+                            Console.Clear();
+                            Console.WriteLine("Scoreboard: ");
                             Console.WriteLine("===============");
                             if (UpScoreboard.Rules.All(r => r.Used))
                             {
+                                
                                 Scoreboard.Print();
                                 Totalscore = UpScoreboard.Sum() + Scoreboard.Sum();
                                 Console.WriteLine("Total score:" + Totalscore);
@@ -112,14 +122,7 @@ namespace Yatzy
                         case 6:
                             if (tries != totaltriesmain)
                             {
-                                Console.WriteLine("Which outcome to choose?");
-
-                                var outcomeIndex = Console.ReadLine()[0] - 'a';
-                                if (outcomeIndex >= 0 && outcomeIndex < Roll.Outcomes.Count)
-                                {
-                                    Roll.UseOutcome(outcomeIndex);
-                                    tries = totaltriesmain;
-                                }
+                                tries = 0;
                             }
                             break;
                         default:
